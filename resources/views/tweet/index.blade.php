@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+{{-- <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"> --}}
+<html lang="ja">
 
 <head>
     <meta charset="utf-8">
@@ -23,7 +24,7 @@
 <body>
 
     <header>
-        <img src="../img/DOUSURU_logo.png" class="logo">
+        <img src="../img/DOUSURU_logo.png" class="logo" alt="DOUSURU">
     </header>
 
     {{-- チャットデータを繰り返し表示 --}}
@@ -31,7 +32,8 @@
         <div id="{{ $tweet->id }}" class="tweetWrapp" value="{{ $tweet->id }}">
             {{-- <p>投稿ID：{{ $tweet->id }}</p> --}}
             <p class="title">{{ $tweet->title }}</p>
-            <p class="uploadDate">投稿日：{{ $tweet->created_at->format('Y/m/d H:i') }}</p>
+            {{-- <p class="uploadDate">投稿日：{{ $tweet->created_at->format('Y/m/d H:i') }}</p> --}}
+            <p class="uploadDate">投稿日：{{ $tweet->created_at->format('Y/m/d') }}</p>
 
             <p class="contents">
                 {!! nl2br(e($tweet->contents)) !!}
@@ -64,6 +66,11 @@
                     @endif
                 @endforeach
             </div>
+
+            <div id="totalBox">
+
+            </div>
+
         </div>
     @endforeach
 
@@ -72,14 +79,18 @@
 
 
     <div id="nav-wrapper" class="nav-wrapper sp">
-        <div class="hamburger" id="js-hamburger">
-            <div>
-                {{-- ペンBTN --}}
+        <div id="js-hamburger">
+
+            <div class="pen_btn" id="pen_btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="23.37" height="23.314" viewBox="0 0 23.37 23.314">
                     <path id="Icon_awesome-pen" data-name="Icon awesome-pen"
                         d="M13.27,4.246l5.843,5.83L6.425,22.734l-5.21.574A1.094,1.094,0,0,1,.006,22.1l.58-5.2L13.27,4.246Zm9.457-.868L19.983.641a2.2,2.2,0,0,0-3.1,0L14.3,3.216l5.843,5.83L22.727,6.47a2.183,2.183,0,0,0,0-3.092Z"
                         transform="translate(0.001 -0.001)" />
                 </svg>
+            </div>
+
+            <div class="close_btn hidden" id="close_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 96 960 960" width="48"><path d="M480 642 282 840q-14 14-33 14t-33-14q-14-14-14-33t14-33l198-198-198-198q-14-14-14-33t14-33q14-14 33-14t33 14l198 198 198-198q14-14 33-14t33 14q14 14 14 33t-14 33L546 576l198 198q14 14 14 33t-14 33q-14 14-33 14t-33-14L480 642Z"/></svg>
             </div>
             {{-- <span class="hamburger__line hamburger__line--1"></span>
             <span class="hamburger__line hamburger__line--2"></span>
@@ -92,17 +103,18 @@
                 <form class="tweetForm" action="/tweet" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="cp_iptxt">
-                        <input class="ef" type="text" name="title" maxlength="20" required>
                         <label>タイトル</label>
+                        <input class="ef" type="text" name="title" maxlength="20" required>
                         <span class="focus_line"></span>
                     </div>
 
                     <div class="cp_iptxt">
-                        <textarea class="ef textarea" name="contents" maxlength="200" rows="4" cols="40" required></textarea>
                         <label>本文</label>
+                        <textarea class="ef textarea" name="contents" maxlength="200" rows="6" cols="40" required></textarea>
                         <span class="focus_line"></span>
                     </div>
 
+                    <p class="select_title">選択肢</p>
                     <div class="options" id="options_0">
                         {{-- <div class="cp_iptxt"> --}}
                         <div class="option_iptxt">

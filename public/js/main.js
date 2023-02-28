@@ -19,6 +19,7 @@ function addOption() {
     // 要素の数が6個になったら、ボタンを無効にする
     if (count >= 6) {
         addOptionBtn.disabled = true;
+        addOptionBtn.classList.add("hidden");
     }
 }
 
@@ -73,7 +74,6 @@ for (let i = 1; i <= tweetWrapp.length; i++) {
                         id: radioBtn[j].name, //tweet ID
                         name: option[j].textContent,
                         count: radioBtn[j].value,
-
                     }),
                 })
                     .then(response => response.json())
@@ -135,6 +135,9 @@ for (let i = 1; i <= tweetWrapp.length; i++) {
                     totalCount += Number(radioBtn[k].value);
                 }
 
+                
+                
+
                 for (let k = 0; k < radioBtn.length; k++) {
                     let countRatio = (Number(radioBtn[k].value) / totalCount) * 100;
                     if (isFinite(countRatio) === false) {
@@ -143,13 +146,23 @@ for (let i = 1; i <= tweetWrapp.length; i++) {
                     countRatio = Math.floor(countRatio);
                     console.log(countRatio);
                     countText[k].textContent = countRatio + "%";
-                    //     // 割合に応じてグラフを変動
+                    // 割合に応じてグラフを変動
                     selectBtn[k].style.cssText = 'width: ' + countRatio + '%; padding:0 10px 0 10px; justify-content: flex-start;';
                     // radio button を一度のみ押せるようにする
                     radioBtn[k].disabled = true;
                 }
 
+
                 console.log(totalCount);
+
+
+                // 投票者数
+                // const totalBox = document.getElementById("total");
+                // var totalNum = document.createElement('p');
+                // totalNum.textContent = totalCount + '投票';
+                // // option.classList.add("option_iptxt");
+                // totalBox.appendChild(totalNum);
+
 
             } else {
 
